@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("TestProject")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Test project for FAZCode.TCPCommunications")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TestProject")]
-[assembly: AssemblyCopyright("Copyright ©  2025")]
+[assembly: AssemblyCompany("FAZCode")]
+[assembly: AssemblyProduct("TCPCommunications Test Project")]
+[assembly: AssemblyCopyright("Copyright © FAZCode 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

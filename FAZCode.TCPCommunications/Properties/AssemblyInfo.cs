@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("FAZCode.TCPCommunications")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("TCPCommunications, for Server and multi-Client TCP based communications.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("FAZCode")]
 [assembly: AssemblyProduct("FAZCode.TCPCommunications")]
-[assembly: AssemblyCopyright("Copyright ©  2025")]
+[assembly: AssemblyCopyright("Copyright © FAZCode 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
