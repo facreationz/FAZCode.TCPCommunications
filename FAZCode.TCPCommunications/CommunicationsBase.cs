@@ -38,7 +38,7 @@ namespace FAZCode.TCPCommunications
                 {
                     connection.TcpClient.Close();
                     connection.TcpClient.Dispose();
-
+                    connection.TcpClient = null;
                     //ClientDisconnectedCT?.Invoke(this, connection);           // Duplication. This is already raised through the ReadMessagesThredProc function.
                 }
             
@@ -90,11 +90,13 @@ namespace FAZCode.TCPCommunications
                     string dataBuffer = "";
                     do
                     {
+
                         // Reads NetworkStream into a byte buffer.
                         byte[] bytes = new byte[ReceiveBufferSize];
 
                         // Read can return anything from 0 to numBytesToRead. 
                         // This method blocks until at least one byte is read.
+                        if (!netStream.CanRead) break;
                         int i = netStream.Read(bytes, 0, ReceiveBufferSize);
                         if (i == 0) break;      // client has disconnected
 
@@ -136,9 +138,20 @@ namespace FAZCode.TCPCommunications
 
 
             }
-            catch (IOException)
+            catch (IOException ex)
             {
                 // client has disconnected in an improper way.
+                // Or due to the same reason given below for ObjectDisposedException.
+                _ = ex;
+            }
+            catch (ObjectDisposedException ex)
+            {
+                // this happens when the NetworkStream.Read is called just after the connection was already closed
+                // Sometimes in split of a second the Tcp.Closed() is called before the Do-Loop reaches the
+                // NetworkStream.Read line for going into blocking mode. This throws error that underlying
+                // connection and stream is already closed. Ideally this should have been caught by NetworkStream.CanRead
+                // but for some reasons it doesn't prevent this error from happening
+                _ = ex;
             }
             catch (Exception ex)
             {
