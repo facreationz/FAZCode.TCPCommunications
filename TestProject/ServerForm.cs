@@ -14,6 +14,8 @@ namespace TestProject
 
         private ServerApp Server { get; set; }
 
+        #region Constra
+
         public ServerForm()
         {
             InitializeComponent();
@@ -37,6 +39,10 @@ namespace TestProject
         {
             if (Server.IsRunning) Server.StopServer();
         }
+
+        #endregion
+
+        #region UI Events
 
         private void Status(string text)
         {
@@ -96,6 +102,13 @@ namespace TestProject
             clientForm.Show(this);
         }
 
+        private void lvConnections_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnRespond.Enabled = lvConnections.SelectedItems.Count > 0;
+        }
+
+        #endregion
+
         #region Server Events
 
         private void Server_ServerStarted(object sender, EventArgs e)
@@ -117,7 +130,8 @@ namespace TestProject
         private void Server_ClientConnected(object sender, ConnectionObject e)
         {
             Status($"Client Connected Received [{e.ConnectionId}]");
-            var iTm = lvConnections.Items.Add(e.ConnectionId, e.ConnectionSerial.ToString(), 0);
+            var iTm = lvConnections.Items.Add(e.ConnectionId, "", 0);
+            iTm.Text = (lvConnections.Items.IndexOf(iTm) + 1).ToString();
             iTm.SubItems.Add(e.ConnectionId);
         }
 
@@ -163,12 +177,6 @@ namespace TestProject
         }
 
         #endregion
-
-        private void lvConnections_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            btnRespond.Enabled = lvConnections.SelectedItems.Count > 0;
-        }
-
 
     }
 }

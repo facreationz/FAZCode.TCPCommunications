@@ -15,7 +15,6 @@ namespace FAZCode.TCPCommunications
         public IPAddress Address { get; protected set; }
 
         private TcpListener listener;
-        private int iClients = 0;
 
         #region Constra
 
@@ -43,7 +42,6 @@ namespace FAZCode.TCPCommunications
             this.Address = address;
             this.Port = port;
             this.Connections = new List<ConnectionObject>();
-            this.iClients = 0;
 
             try
             {
@@ -84,7 +82,7 @@ namespace FAZCode.TCPCommunications
                         ConnectionId = Guid.NewGuid().ToString(),
                         ConnectedOn = DateTime.Now,
                         TcpClient = client,
-                        ConnectionSerial = ++iClients,
+                        ClientEndPoint = client.Client.RemoteEndPoint as IPEndPoint,
                     };
                     Connections.Add(connection);                            // add to clients list
                     OnClientConnect(connection);                            // raise event
