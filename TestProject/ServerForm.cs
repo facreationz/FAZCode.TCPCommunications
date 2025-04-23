@@ -146,7 +146,7 @@ namespace TestProject
             Status($"Client Error [{connection.ConnectionId}]: " + ex.Message);
         }
 
-        private void Server_MessageReceived(object sender, ConnectionObject connection, string message)
+        private void Server_MessageReceived(object sender, ConnectionObject connection, string message, long bytesReceived)
         {
             // Convert message to generic packet
             JObject jsonPacket = HelperTools.MessageToJObject(message, Server.EndOfLinesCharacters);
@@ -171,9 +171,9 @@ namespace TestProject
             }
         }
 
-        private void Server_MessageSent(object sender, ConnectionObject e)
+        private void Server_MessageSent(object sender, ConnectionObject connection, long bytesSent)
         {
-            Status($"Message Sent [{e.ConnectionId}]");
+            Status($"Message Sent [{connection.ConnectionId}]");
         }
 
         #endregion

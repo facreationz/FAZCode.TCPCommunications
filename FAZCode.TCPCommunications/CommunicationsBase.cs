@@ -191,7 +191,7 @@ namespace FAZCode.TCPCommunications
                     connection.BytesSent += bytesSent;
 
                     // Done
-                    Events.OnMessageSent(this, connection);         // raise event
+                    Events.OnMessageSent(this, connection, bytesSent);         // raise event
                     return true;
                 }
                 else

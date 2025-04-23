@@ -89,12 +89,12 @@ namespace TestProject
 
         #region Client Events
 
-        private void Client_MessageSent(object sender, ConnectionObject e)
+        private void Client_MessageSent(object sender, ConnectionObject connection, long bytesSent)
         {
             Status("Message Sent.");
         }
 
-        private void Client_MessageReceived(object sender, ConnectionObject connection, string message)
+        private void Client_MessageReceived(object sender, ConnectionObject connection, string message, long bytesReceived)
         {
             // Read message
             Packet packet = Packet.DeserializeMessage(message);

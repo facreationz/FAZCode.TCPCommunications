@@ -11,12 +11,22 @@ namespace FAZCode.TCPCommunications
     {
 
         // Delegates
-        public delegate void MessageReceiveHandler(object sender, ConnectionObject connection, string message);
+        public delegate void MessageReceiveHandler(object sender, ConnectionObject connection, string message, long bytesReceived);
+        public delegate void MessageSentHandler(object sender, ConnectionObject connection, long bytesSent);
         public delegate void ClientErrorHandler(object sender, ConnectionObject connection, Exception ex);
 
         // Server-specific Events
+        /// <summary>
+        /// Occurs when the server has started its operations and listening for new client connections.
+        /// </summary>
         public event EventHandler ServerStarted;
+        /// <summary>
+        /// Occurs when the server has been shutdown and has stopped listening for connections. All active client connections are disconneted.
+        /// </summary>
         public event EventHandler ServerStopped;
+        /// <summary>
+        /// Server errors occurs due to server being unable to start listening for connections, or unable to accept a new client connection.
+        /// </summary>
         public event EventHandler<Exception> ServerError;
 
         // Client-specific Events
@@ -26,7 +36,7 @@ namespace FAZCode.TCPCommunications
 
         // Common
         public event MessageReceiveHandler MessageReceived;                   
-        public event EventHandler<ConnectionObject> MessageSent;
+        public event MessageSentHandler MessageSent;
 
         private System.Windows.Forms.Label EventFiringControl { get; set; }
 
@@ -100,15 +110,15 @@ namespace FAZCode.TCPCommunications
         {
             EventFiringControl.Invoke(new MethodInvoker(delegate
             {
-                MessageReceived?.Invoke(sender, connection, message);
+                MessageReceived?.Invoke(sender, connection, message, message.Length);
             }));
         }
 
-        internal void OnMessageSent(object sender, ConnectionObject connection)
+        internal void OnMessageSent(object sender, ConnectionObject connection, long bytesSent)
         {
             EventFiringControl.Invoke(new MethodInvoker(delegate
             {
-                MessageSent?.Invoke(sender, connection);
+                MessageSent?.Invoke(sender, connection, bytesSent);
             }));
         }
 
