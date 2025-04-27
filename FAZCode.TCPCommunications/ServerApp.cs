@@ -12,7 +12,7 @@ namespace FAZCode.TCPCommunications
     {
 
         public List<ConnectionObject> Connections { get; private set; } = new List<ConnectionObject>();
-        public IPAddress Address { get; protected set; }
+        public IPAddress Address { get; set; }
 
         private TcpListener listener;
 
@@ -33,6 +33,21 @@ namespace FAZCode.TCPCommunications
         #endregion
 
         #region Server Management
+
+        public void StartServer()
+        {
+            if (this.Address == null)
+            {
+                throw new Exception("Server listening address is not specified.");
+            }
+            if (this.Port <= 0)
+            {
+                throw new Exception("Server listening port is not specified.");
+            }
+            
+            // Start server
+            StartServer(this.Address, this.Port);
+        }
 
         public void StartServer(IPAddress address, int port)
         {
