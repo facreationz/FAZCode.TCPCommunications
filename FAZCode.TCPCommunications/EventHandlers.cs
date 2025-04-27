@@ -51,6 +51,7 @@ namespace FAZCode.TCPCommunications
 
         internal void OnServerStarted(object sender)
         {
+            if (EventFiringControl == null) return;
             EventFiringControl.Invoke(new MethodInvoker(delegate
             {
                 ServerStarted?.Invoke(sender, EventArgs.Empty);
@@ -59,6 +60,7 @@ namespace FAZCode.TCPCommunications
 
         internal void OnServerStopped(object sender)
         {
+            if (EventFiringControl == null) return;
             EventFiringControl.Invoke(new MethodInvoker(delegate
             {
                 ServerStopped?.Invoke(sender, EventArgs.Empty);
@@ -68,6 +70,7 @@ namespace FAZCode.TCPCommunications
 
         internal void OnServerError(object sender, Exception e)
         {
+            if (EventFiringControl == null) return;
             EventFiringControl.Invoke(new MethodInvoker(delegate
             {
                 ServerError?.Invoke(sender, e);
@@ -80,6 +83,7 @@ namespace FAZCode.TCPCommunications
 
         internal void OnClientConnected(object sender, ConnectionObject connection)
         {
+            if (EventFiringControl == null) return;
             EventFiringControl.Invoke(new MethodInvoker(delegate
             {
                 ClientConnected?.Invoke(sender, connection);
@@ -88,6 +92,7 @@ namespace FAZCode.TCPCommunications
 
         internal void OnClientDisconnected(object sender, ConnectionObject connection)
         {
+            if (EventFiringControl == null) return;
             EventFiringControl.Invoke(new MethodInvoker(delegate
             {
                 ClientDisconnected?.Invoke(sender, connection);
@@ -96,6 +101,7 @@ namespace FAZCode.TCPCommunications
 
         internal void OnClientError(object sender, ConnectionObject connection, Exception ex)
         {
+            if (EventFiringControl == null) return;
             EventFiringControl.Invoke(new MethodInvoker(delegate
             {
                 ClientError?.Invoke(sender, connection, ex);
@@ -108,6 +114,7 @@ namespace FAZCode.TCPCommunications
 
         internal void OnMessageReceived(object sender, ConnectionObject connection, string message)
         {
+            if (EventFiringControl == null) return;
             EventFiringControl.Invoke(new MethodInvoker(delegate
             {
                 MessageReceived?.Invoke(sender, connection, message, message.Length);
@@ -116,6 +123,7 @@ namespace FAZCode.TCPCommunications
 
         internal void OnMessageSent(object sender, ConnectionObject connection, long bytesSent)
         {
+            if (EventFiringControl == null) return;
             EventFiringControl.Invoke(new MethodInvoker(delegate
             {
                 MessageSent?.Invoke(sender, connection, bytesSent);

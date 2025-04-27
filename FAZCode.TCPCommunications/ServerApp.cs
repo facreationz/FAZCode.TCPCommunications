@@ -21,13 +21,20 @@ namespace FAZCode.TCPCommunications
         public ServerApp()
         {
             Events = new EventHandlers();
-            Events.Initialise();
         }
 
         public override void Dispose()
         {
             // Clean Up
             if (IsRunning) StopServer();
+        }
+
+        /// <summary>
+        /// Call this function from any of your UI thread.
+        /// </summary>
+        public void InitialiseEvents()
+        {
+            Events.Initialise();
         }
 
         #endregion
